@@ -5,7 +5,7 @@
         </a>
         <ul style="padding: 0 0 0 19px;">
             <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}" style="display: block">
-                <div style="margin-bottom: 20px;">
+                <div style="margin-bottom: 30px;">
                     <a href.bind="row.href" class="rm-nav-item-${row.settings.cssClass}">
                         <i repeat.for="icon of row.settings.icons" class="fa fa-${icon}"></i>
                     </a>

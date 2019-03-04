@@ -25,8 +25,10 @@ export class App {
                 moduleId: PLATFORM.moduleName('./modules/settings/settings'),
                 nav: true,
                 title: 'Settings',
-                settings: {icons: ["cog"]},
-                cssClass: "settings"
+                settings: {
+                    icons: ["cog"],
+                    cssClass: "settings"
+                }
             },
         ]);
 

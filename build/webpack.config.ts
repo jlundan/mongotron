@@ -7,9 +7,19 @@ import * as webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import * as merge from 'webpack-merge';
 import * as WriteFilePlugin from 'write-file-webpack-plugin';
+import {ProvidePlugin} from "webpack";
+import {ExtractTextPlugin} from 'extract-text-webpack-plugin';
 
 const isDevServer = process.argv.some(v => v.includes('webpack-dev-server'));
 const appRoot = process.cwd();
+const extractCss = false;
+const cssRules = [
+  { loader: 'css-loader' },
+  {
+    loader: 'postcss-loader',
+    options: { plugins: () => [require('autoprefixer')({ browsers: ['last 2 versions'] })]}
+  }
+];
 
 function getBundleAnalyzerPlugin(entryPoints: webpack.Entry): BundleAnalyzerPlugin {
   return new BundleAnalyzerPlugin({
@@ -56,6 +66,21 @@ const commonConfig: ({ production }) => webpack.Configuration = (
         }
       },
       {
+        test: /\.css$/i,
+        issuer: [{ not: [{ test: /\.html$/i }] }],
+        use: extractCss ? ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: cssRules,
+        }) : ['style-loader', ...cssRules],
+      },
+      {
+        test: /\.css$/i,
+        issuer: [{ test: /\.html$/i }],
+        // CSS required in templates cannot be extracted safely
+        // because Aurelia would try to require it again in runtime
+        use: cssRules,
+      },
+      {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
         issuer: /\.[tj]s$/i
@@ -78,12 +103,24 @@ const commonConfig: ({ production }) => webpack.Configuration = (
         use: 'source-map-loader',
         enforce: 'pre',
         exclude: [/reflect-metadata/]
-      }
+      },
+      { test: /\.(png|gif|jpg|cur)$/i, loader: 'url-loader', options: { limit: 8192 } },
+      { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },
+      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } },
+      // load these fonts normally, as files:
+      { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' },
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.production': JSON.stringify(production)
+    }),
+    new ProvidePlugin({
+      'Promise': 'bluebird',
+      '$': 'jquery',
+      'jQuery': 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'] // Bootstrap 4 Dependency.
     }),
     ...when(production, new CleanWebpackPlugin(['dist'], { root: appRoot, verbose: false }))
   ],
@@ -131,7 +168,7 @@ const renderer = (entryPoints: webpack.Entry, nodeIntegration: boolean = true) =
   });
 
 export = [
-  main({ main: path.resolve(appRoot, 'src/main') }),
+  main({ main: path.resolve(appRoot, 'src/main'), vendor: ['bluebird', 'jquery', 'bootstrap'] }),
   renderer({
     renderer: path.resolve(appRoot, 'src/renderer')
     // Add multiple renderer entry points that can be opened in other windows

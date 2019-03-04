@@ -1,26 +1,41 @@
 <template bindable="router">
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" role="navigation">
-        <a class="navbar-brand" href="#">
-            <i class="fa fa-home"></i>
-            <span>${router.title}</span>
+    <div class="pull-left" role="navigation" style="width: 60px; background-color: #111111; height: 100%">
+        <a class="logo" href="#" style="margin-bottom: 20px; display: block">
+            <img src="./../../../static/images/logo.png">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#skeleton-navigation-navbar" aria-controls="skeleton-navigation-navbar"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <ul style="padding: 0 0 0 19px;">
+            <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}" style="display: block">
+                <div style="margin-bottom: 20px;">
+                    <a href.bind="row.href" class="rm-nav-item-${row.settings.cssClass}">
+                        <i repeat.for="icon of row.settings.icons" class="fa fa-${icon}"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
 
-        <div class="collapse navbar-collapse" id="skeleton-navigation-navbar">
-            <ul class="navbar-nav mr-auto">
-                <li repeat.for="row of router.navigation" class="nav-item ${row.isActive ? 'active' : ''}">
-                    <a href.bind="row.href" class="nav-link">${row.title}</a>
-                </li>
-            </ul>
+        <ul>
+            <li class="loader" if.bind="router.isNavigating">
+                <i class="fa fa-spinner fa-spin fa-2x"></i>
+            </li>
+        </ul>
+    </div>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li class="loader" if.bind="router.isNavigating">
-                    <i class="fa fa-spinner fa-spin fa-2x"></i>
-                </li>
-            </ul>
-        </div>
-    </nav>
+
+
+    <!--<div class="sidenav">-->
+        <!--<div class="logo">-->
+            <!--<img image-src="./images/logo.png" uib-tooltip="weeeeee" tooltip-placement="right" tooltip-popup-delay="2000" tooltip-append-to-body="true">-->
+        <!--</div>-->
+        <!--<ul>-->
+            <!--<li uib-tooltip="Manage Connections" tooltip-placement="right" tooltip-popup-delay="800" tooltip-append-to-body="true" ng-click="showConnections(null, $event)">-->
+      <!--<span class="server-icon">-->
+        <!--<i class="fa fa-server"></i>-->
+        <!--<i class="fa fa-plus-circle"></i>-->
+      <!--</span>-->
+            <!--</li>-->
+            <!--<li uib-tooltip="Settings" tooltip-placement="right" tooltip-popup-delay="800" tooltip-append-to-body="true" ng-click="showSettings($event)">-->
+                <!--<i class="fa fa-cog"></i>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
 </template>

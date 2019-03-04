@@ -6,7 +6,7 @@ export class App {
     router: Router;
 
     configureRouter(config: RouterConfiguration, router: Router) {
-        config.title = 'Robomongo';
+        config.title = 'Mongotron';
         config.map([
             {
                 route: ['connections', ''],

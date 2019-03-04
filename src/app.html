@@ -1,14 +1,9 @@
 <template>
-    <require from="./style.scss"></require>
+    <require from="./components/side-nav/side-nav.html"></require>
 
-    <h1>Connected USB Devices</h1>
-    <ul>
-        <li repeat.for="device of devices">
-            <!-- ${device.vendorId}
-            ${device.productId} -->
-            foo ${device.manufacturer}
-            ${device.deviceName}
-            ${device.serialNumber}
-        </li>
-    </ul>
+    <side-nav router.bind="router"></side-nav>
+
+    <div class="page-host">
+        <router-view></router-view>
+    </div>
 </template>

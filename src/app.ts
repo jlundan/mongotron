@@ -1,15 +1,17 @@
-import * as usbDetect from 'usb-detection';
+import {Aurelia} from 'aurelia-framework';
+import {Router, RouterConfiguration} from 'aurelia-router';
+import {PLATFORM} from 'aurelia-pal';
 
 export class App {
-  public devices: usbDetect.Device[] = [];
+  router: Router;
 
-  public async attached() {
-    this.devices = await usbDetect.find();
+  configureRouter(config: RouterConfiguration, router: Router) {
+    config.title = 'Robomongo';
+    config.map([
+      { route: ['connections', ''],   name: 'main', moduleId: PLATFORM.moduleName('./modules/connections/connections'), nav: true, title: 'Connections' },
+      { route: ['settings'],          name: 'main', moduleId: PLATFORM.moduleName('./modules/settings/settings'), nav: true, title: 'Settings' },
+    ]);
 
-    usbDetect.on('change', async device => {
-      this.devices = await usbDetect.find();
-    });
-
-    usbDetect.startMonitoring();
+    this.router = router;
   }
 }

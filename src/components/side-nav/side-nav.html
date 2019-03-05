@@ -1,22 +1,11 @@
 <template bindable="router">
-    <div class="pull-left" role="navigation" style="width: 60px; background-color: #111111; height: 100%">
-        <a class="logo" href="#" style="margin-bottom: 20px; display: block">
-            <img src="./../../../static/images/logo.png">
+    <require from="./side-nav.scss"></require>
+    <div class="mongotron-side-nav" role="navigation">
+        <a class="logo" href="#">
+            <img alt="logo" src="./../../../static/images/logo.png">
         </a>
-        <ul style="padding: 0 0 0 19px;">
-            <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}" style="display: block">
-                <div style="margin-bottom: 30px;">
-                    <a href.bind="row.href" class="rm-nav-item-${row.settings.cssClass}">
-                        <i repeat.for="icon of row.settings.icons" class="fa fa-${icon}"></i>
-                    </a>
-                </div>
-            </li>
-        </ul>
-
-        <ul>
-            <li class="loader" if.bind="router.isNavigating">
-                <i class="fa fa-spinner fa-spin fa-2x"></i>
-            </li>
-        </ul>
+        <a repeat.for="row of router.navigation" href.bind="row.href" class="side-nav-item side-nav-item-${row.settings.cssClass}">
+            <i repeat.for="icon of row.settings.icons" class="fa fa-${icon}"></i>
+        </a>
     </div>
 </template>

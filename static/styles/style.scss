@@ -14,37 +14,3 @@ a, a:visited{
 a:hover{
   color: #cccccc;
 }
-
-.logo {
-  padding: 10px 0 10px 8px;
-  margin: 0;
-  img {
-    height: 40px;
-    &:hover {
-      animation: fa-spin 1s infinite 2s linear;
-    }
-  }
-}
-
-.rm-nav-item-server {
-  position: relative;
-  height: 12px;
-  display: block;
-
-  .fa {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    &.fa-plus-circle {
-      top: 8px;
-      left: 10px;
-      font-size: 12px;
-    }
-  }
-}
-
-.rm-nav-item-settings {
-  position: relative;
-  left: 1px;
-}

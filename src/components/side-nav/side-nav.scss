@@ -1,0 +1,50 @@
+.mongotron-side-nav {
+  float: left;
+  width: 60px;
+  background-color: #111111;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .logo {
+    padding: 10px 0 10px 0;
+    margin: 0 0 20px 0;
+    display: block;
+
+    img {
+      height: 40px;
+      &:hover {
+        animation: fa-spin 1s infinite 2s linear;
+      }
+    }
+  }
+
+  .side-nav-item {
+    margin-bottom: 30px;
+    display: block;
+    width: 20px;
+  }
+
+  .side-nav-item-server {
+    position: relative;
+    height: 12px;
+
+    .fa {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      &.fa-plus-circle {
+        top: 8px;
+        left: 10px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .side-nav-item-settings {
+    position: relative;
+    left: 1px;
+  }
+}

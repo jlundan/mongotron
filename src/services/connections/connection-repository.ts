@@ -60,7 +60,7 @@ class ConnectionRepository {
       return _this.list()
         .then((_connections) => {
           connections = _connections;
-          return createConnection(options, _connections);
+          return createConnection(options);
         })
         .then((_connection) => {
           newConnection = _connection;

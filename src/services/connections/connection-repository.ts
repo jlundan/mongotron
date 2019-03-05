@@ -228,7 +228,7 @@ function convertConnectionInstanceIntoConfig(connection) {
     port: connection.port,
     replicaSet: connection.replicaSet,
     databases: connection.databases ? connection.databases.map((database) => {
-      var db = {
+      let db: any = {
         id: database.id || uuid.v4(),
         name: database.name
       };

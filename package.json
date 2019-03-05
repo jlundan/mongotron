@@ -15,7 +15,9 @@
     "build:dev": "cross-env TS_NODE_PRETTY=true TS_NODE_PROJECT=./build/tsconfig.json webpack --config ./build/webpack.config.ts",
     "watch": "yarn build:dev && cross-env TS_NODE_PRETTY=true TS_NODE_PROJECT=./build/tsconfig.json webpack-dev-server --config ./build/webpack.config.ts --hot --inline",
     "release": "electron-builder --config ./build/release.yml",
-    "fix": "prettier --write \"./{src,build}/**/*.ts\" && tslint --fix --force --format stylish \"./{src,build}/**/*.ts\""
+    "fix": "prettier --write \"./{src,build}/**/*.ts\" && tslint --fix --force --format stylish \"./{src,build}/**/*.ts\"",
+    "watch:test": "tsc --project ./tsconfig.tests.json -w",
+    "test": "mocha 'test/**/*.spec.js'"
   },
   "main": "main.js",
   "license": "MIT",

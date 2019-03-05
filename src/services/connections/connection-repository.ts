@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('underscore');
-const Promise = require('bluebird');
 const uuid = require('node-uuid');
 
 const fileUtils = require('lib/utils/fileUtils');

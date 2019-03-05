@@ -6,3 +6,5 @@ dist
 releases
 *.log
 .idea
+test/**/*.js
+src/**/*.js

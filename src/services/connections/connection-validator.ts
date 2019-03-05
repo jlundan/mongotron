@@ -1,18 +1,13 @@
-'use strict';
+import * as errors from '../errors';
+import {MongoUtils} from "../utils/mongo-utils";
 
-const Promise = require('bluebird');
-
-const errors = require('lib/errors');
-const mongoUtils = require('src/lib/utils/mongoUtils');
-
-/** @module Connection */
 /** @class */
-class ConnectionValidator {
+export class ConnectionValidator {
   /**
    * Validate a connection for creating
    * @param {object} data
    */
-  validateCreate(data) {
+  public static validateCreate(data) {
     return new Promise((resolve, reject) => {
       _baseValidate(data)
         .then(resolve)
@@ -24,7 +19,7 @@ class ConnectionValidator {
    * Validate a connection for updating
    * @param {object} data
    */
-  validateUpdate(data) {
+  public static validateUpdate(data) {
     return new Promise((resolve, reject) => {
       _baseValidate(data)
         .then(resolve)
@@ -58,7 +53,7 @@ function _baseValidate(data) {
       if (!data.auth.password) return reject(new errors.InvalidArugmentError('auth.password is required'));
     }
 
-    if (!mongoUtils.isLocalHost(data.host)) {
+    if (!MongoUtils.isLocalHost(data.host)) {
       if (!data.databaseName) return reject(new errors.InvalidArugmentError('database is required when connecting to a remote server.'));
     }
 
@@ -66,4 +61,3 @@ function _baseValidate(data) {
   });
 }
 
-module.exports = new ConnectionValidator();

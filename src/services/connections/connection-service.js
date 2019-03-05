@@ -4,11 +4,11 @@ const Promise = require('bluebird');
 
 const logger = require('lib/modules/logger');
 const errors = require('lib/errors');
-const connectionValidator = require('./validator');
-const connectionRepository = require('./repository');
-const mongoUtils = require('src/lib/utils/mongoUtils');
+const connectionValidator = require('./connection-validator');
+const connectionRepository = require('./connection-repository');
+const mongoUtils = require('../utils/mongo-utils');
 
-const DEFAULT_CONNECTIONS = require('./defaults');
+const DEFAULT_CONNECTIONS = require('./connection-defaults');
 
 /** @module Connection */
 /** @class */

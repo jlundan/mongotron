@@ -53,6 +53,10 @@ const commonConfig: ({ production }) => webpack.Configuration = (
   module: {
     rules: [
       {
+        test: /require_optional/,
+        use: 'null-loader'
+      },
+      {
         // Relocates assets that are located dynamically at runtime and rewrites
         // their location. This is particularly helpful for node binaries
         // located via the bindings or node-pre-gyp libraries
@@ -112,6 +116,7 @@ const commonConfig: ({ production }) => webpack.Configuration = (
     ]
   },
   plugins: [
+    new webpack.WatchIgnorePlugin(['node_modules', 'old', "dist", ".idea"]),
     new webpack.DefinePlugin({
       'process.env.production': JSON.stringify(production)
     }),
@@ -129,7 +134,11 @@ const commonConfig: ({ production }) => webpack.Configuration = (
     __filename: false,
     process: false
   },
-  externals: ['electron']
+  externals: ['electron'],
+  watch: true,
+  watchOptions: {
+    ignored: ['**/*.js', 'node_modules', 'old/**/*', "dist/**/*", ".idea/**/*"]
+  }
 });
 
 const main = (entryPoints: webpack.Entry) => ({ production } = { production: false }) =>
@@ -162,7 +171,7 @@ const renderer = (entryPoints: webpack.Entry, nodeIntegration: boolean = true) =
       ...when(isDevServer, new webpack.HotModuleReplacementPlugin(), new WriteFilePlugin()),
       // Create an HTML file for each entry point
       ...Object.keys(entryPoints).map(
-        entry => new HtmlWebpackPlugin({ title: '', filename: `${entry}.html`, chunks: [entry] })
+        entry => new HtmlWebpackPlugin({ title: '', filename: `${entry}.html`, chunks: [entry], template: 'build/resources/renderer.html' })
       )
     ]
   });

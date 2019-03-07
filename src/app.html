@@ -1,9 +1,15 @@
 <template>
-    <require from="./components/side-nav/side-nav.html"></require>
+    <div style="height: 100%">
+        <require from="./components/side-nav/side-nav.html"></require>
+        <require from="./components/connection-dialog/connection-dialog"></require>
 
-    <side-nav router.bind="router"></side-nav>
+        <side-nav router.bind="router"></side-nav>
 
-    <div class="page-host" style="margin-left: 70px; padding-top: 75px; height: 100%">
-        <router-view></router-view>
+        <div class="page-host" style="margin-left: 70px; padding-top: 75px; height: 100%">
+            <router-view></router-view>
+        </div>
+
+       <connection-dialog></connection-dialog>
     </div>
+
 </template>

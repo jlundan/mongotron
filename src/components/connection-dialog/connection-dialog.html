@@ -1,0 +1,26 @@
+<template>
+    <require from="./connection-dialog.scss"></require>
+    <require from="./list-connections/list-connections"></require>
+
+    <div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="connect">
+                    <div class="modal-header modal-header-w-icon clearfix">
+                        <h3 class="pull-left">
+                            <i class="fa fa-server"></i> Manage your connections...
+                        </h3>
+                        <i class="close fa fa-times-circle" ng-click="close()"></i>
+                    </div>
+                    <div class="modal-body">
+                        <list-connections></list-connections>
+                        <!--<div class="connect-panel" ng-if="currentPage === 'add'" ng-include="addConnectionSrc"></div>-->
+                        <!--<div class="connect-panel" ng-if="currentPage === 'edit'" ng-include="editConnectionSrc"></div>-->
+                        <!--<div class="connect-panel" ng-if="currentPage === 'remove'" ng-include="removeConnectionSrc"></div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+

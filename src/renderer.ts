@@ -3,6 +3,7 @@
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../static/styles/style.scss';
+import '../static/styles/main.scss';
 
 import { bootstrap } from 'aurelia-bootstrapper';
 import { Aurelia } from 'aurelia-framework';

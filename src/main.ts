@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu, globalShortcut } from 'electron';
 import environment from './environment';
 
 let mainWindow: Electron.BrowserWindow | undefined;
@@ -23,6 +23,10 @@ function createWindow() {
     if (mainWindow) {
       mainWindow.show();
     }
+  });
+
+  globalShortcut.register('f5', function() {
+    mainWindow.reload();
   });
 }
 

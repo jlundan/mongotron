@@ -13,7 +13,7 @@ import * as Bluebird from 'bluebird';
 Bluebird.config({ warnings: { wForgottenReturn: false } });
 
 bootstrap(async (aurelia: Aurelia) => {
-  aurelia.use.standardConfiguration();
+  await aurelia.use.standardConfiguration();
 
   if (environment.debug) {
     aurelia.use.developmentLogging();

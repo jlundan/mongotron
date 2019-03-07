@@ -1,0 +1,51 @@
+@import "../themes/theming";
+
+.modal {
+  .modal-content {
+    @include theme() {
+      border-radius: get('border-radius-base');
+      background: get('theme-modal-content-bg');
+      a {
+        color: get('theme-text-color');
+      }
+    }
+  }
+  .modal-header {
+    @include theme() {
+      padding: 10px 15px;
+      font-size: 20px;
+      font-weight: 500;
+      border: none;
+      background: get('theme-modal-header-bg');
+    }
+    h3 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: 300;
+    }
+    &.modal-header-w-icon {
+      i {
+        top: 1px;
+        position: relative;
+      }
+    }
+    .close {
+      @include theme() {
+        color: get('theme-text-color');
+      }
+    }
+  }
+  .modal-footer {
+    padding: 10px 15px;
+    border: none;
+    @include theme() {
+      background: get('theme-modal-footer-bg');
+    }
+  }
+}
+.modal-backdrop {
+  bottom: 0;
+}
+.fade {
+  transition: opacity 0.35s linear;
+}

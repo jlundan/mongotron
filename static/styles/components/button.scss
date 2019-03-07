@@ -1,0 +1,104 @@
+@import "../themes/theming";
+
+@mixin pretty-buttons($color, $background, $text-shadow: none) {
+  color: $color;
+  background: $background;
+  border-color: darken($background, 10%);
+  border-bottom-color: darken($background, 20%);
+  text-shadow: $text-shadow;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    background: darken($background, 10%);
+    outline: none;
+    border-color: darken($background, 20%);
+    color: $color;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      background-color: darken($background, 5%);
+
+      // border-color: darken(@background, 2%);
+    }
+  }
+}
+
+/* Override Bootstrap's buttons with pretty-buttons */
+.btn {
+  padding: 0.5em 1em 0.6em;
+}
+@include blanket-theme() {
+  $_theme-btn-default-color: get('theme-btn-default-color');
+  $_theme-btn-default-bg: get('theme-btn-default-bg');
+
+  $_theme-btn-primary-color: get('theme-btn-primary-color');
+  $_theme-btn-primary-bg: get('theme-btn-primary-bg');
+
+  //$_theme-btn-success-color: get('theme-btn-success-color');
+  //$_theme-btn-success-bg: get('theme-btn-success-bg');
+  //
+  //$_theme-btn-info-color: get('theme-btn-info-color');
+  //$_theme-btn-info-bg: get('theme-btn-info-bg');
+  //
+  //$_theme-btn-warning-color: get('theme-btn-warning-color');
+  //$_theme-btn-warning-bg: get('theme-btn-warning-bg');
+  //
+  //$_theme-btn-danger-color: get('theme-btn-danger-color');
+  //$_theme-btn-danger-bg: get('theme-btn-danger-bg');
+
+  .btn-default {
+    @include pretty-buttons($_theme-btn-default-color, $_theme-btn-default-bg);
+  }
+  .btn-primary {
+    @include pretty-buttons($_theme-btn-primary-color, $_theme-btn-primary-bg);
+  }
+  //.btn-success {
+  //  @include pretty-buttons($_theme-btn-success-color, $_theme-btn-success-bg);
+  //}
+  //.btn-info {
+  //  @include pretty-buttons($_theme-btn-info-color, $_theme-btn-info-bg);
+  //}
+  //.btn-warning {
+  //  @include pretty-buttons($_theme-btn-warning-color, $_theme-btn-warning-bg);
+  //}
+  //.btn-danger {
+  //  @include pretty-buttons($_theme-btn-danger-color, $_theme-btn-danger-bg);
+  //}
+}
+
+.btn-inverse {
+  @include pretty-buttons(white, #474949);
+}
+.btn-icon-left {
+  .icons {
+    margin-right: 10px;
+  }
+}
+.btn-icon-right {
+  .icons {
+    margin-left: 10px;
+  }
+}
+.btn-boolean {
+  .btn {
+    margin: 0;
+    display: inline-block;
+    float: left;
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
+    }
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}

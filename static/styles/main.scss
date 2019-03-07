@@ -1,0 +1,14 @@
+$fa-font-path: '../vendor/font-awesome/fonts';
+
+@import 'appGlobals';
+@import 'appUtils';
+
+//@import 'app.less';
+//@import 'footer.less';
+@import 'appVariables';
+@import 'appAnimations';
+@import 'appVendorOverrides';
+@import 'appFonts';
+
+//components
+@import 'appComponents';

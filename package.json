@@ -1,12 +1,11 @@
 {
-  "name": "aurelia-electron-webpack",
-  "productName": "Aurelia + Electron + Webpack",
-  "description": "Aurelia Electron app built with Webpack",
-  "version": "0.1.0",
-  "author": "Tim Fish <tim@timfish.uk>",
+  "name": "mongotron",
+  "productName": "Mongotron",
+  "description": "Cross platform MongoDB management",
+  "version": "2.0.0-alpha-1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/timfish/aurelia-electron-webpack.git"
+    "url": "https://github.com/jlundan/mongotron.git"
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",

@@ -5,21 +5,20 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../static/styles/style.scss';
 import '../static/styles/main.scss';
 
-import { bootstrap } from 'aurelia-bootstrapper';
-import { Aurelia } from 'aurelia-framework';
-import { App } from './app';
-import environment from './environment';
+import {AureliaInitializer} from "./initializers/aurelia-initializer";
+import {AppInitializer} from "./initializers/app-initializer";
+import {State} from "./state/state";
+
 import * as Bluebird from 'bluebird';
 
-Bluebird.config({ warnings: { wForgottenReturn: false } });
+Bluebird.config({warnings: {wForgottenReturn: false}});
 
-bootstrap(async (aurelia: Aurelia) => {
-  await aurelia.use.standardConfiguration();
+export class Renderer {
+    public static render() {
+        AppInitializer.bootstrap().then((initialState: State) => {
+            AureliaInitializer.bootstrap(initialState);
+        });
+    }
+}
 
-  if (environment.debug) {
-    aurelia.use.developmentLogging();
-  }
-
-  await aurelia.start();
-  return aurelia.setRoot(App, document.body);
-});
+Renderer.render();

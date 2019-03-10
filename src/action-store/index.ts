@@ -6,10 +6,7 @@ import {Connection} from "../state/connections";
 
 @autoinject()
 export class ActionStore {
-    private readonly _isAutoRegistering: boolean;
-
     constructor(private _store: Store<State>) {
-        this._isAutoRegistering = true;
         this.registerAddConnectionAction();
     }
 

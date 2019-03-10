@@ -11,55 +11,52 @@ export class ActionStore {
         this._isAutoRegistering = true;
     }
 
-    public register(clazz) {
-        const instance = new Creator<Action>(clazz).getNew();
-
-        if(!(instance instanceof Action)) {
-            throw `ActionStore: Cannot fire class ${clazz.name} which is not Action`;
-        }
-
-        console.log(`ActionStore: Registering class ${clazz.name}`);
-
-        this._store.registerAction(clazz.name, instance.reducer)
+    public register(action: Action) {
+        console.log(`ActionStore: Registering class ${action.name}`);
+        this._store.registerAction(action.name, action.reducer)
     }
 
-    public fire(clazz, payload: any): Promise<void> {
+    public fire(action: Action): Promise<void> {
         return new Promise((resolve, reject) => {
             try{
-                if(this._isAutoRegistering === true && !this._store.isActionRegistered(clazz.name)) {
-                    this.register(clazz);
+                if(this._isAutoRegistering === true && !this._store.isActionRegistered(action.name)) {
+                    this.register(action);
                 }
                 resolve();
             }catch (e) {
                 reject(new Error(e));
             }
         }).then(() => {
-            return this._store.dispatch(clazz.name, payload);
+            return this._store.dispatch(action.name, action.payload);
         });
     }
 }
 
 export abstract class Action {
-    public get reducer() {
-        return (state: State, payload: any): State => {
+    protected constructor(private _name: string, private _payload: any) {}
+
+    public get name() {
+        return this._name;
+    }
+
+    public get payload() {
+        return this._payload;
+    }
+
+    public get reducer(): (state: State, payload: any) => State | Promise<State> {
+        return (state: State): null | Promise<null> => {
             const newState = JSON.parse(JSON.stringify(state));
-            return this.perform(newState, payload);
+            const result = this.updateState(newState, this._payload);
+            if(result instanceof Promise) {
+                return result.then(() => {
+                    return newState;
+                });
+            }
+            return newState;
         };
     }
 
-    protected abstract perform(state: State, any): State;
-
-}
-
-interface ParameterlessConstructor<T> {
-    new(): T;
-}
-
-class Creator<T> {
-    constructor(private ctor: ParameterlessConstructor<T>) {}
-    getNew() {
-        return new this.ctor();
-    }
+    protected abstract updateState(state: State, payload: any): void | Promise<void>;
 }
 
 export function filter(subState) {

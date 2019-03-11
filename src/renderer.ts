@@ -11,6 +11,8 @@ import {State} from "./state/state";
 
 import * as Bluebird from 'bluebird';
 
+import "extensions/array-extensions";
+
 Bluebird.config({warnings: {wForgottenReturn: false}});
 
 export class Renderer {

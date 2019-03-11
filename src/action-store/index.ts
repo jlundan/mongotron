@@ -25,9 +25,8 @@ export class ActionStore {
 
 }
 
-export function filter(filters) {
+export function connectToState(filters?: any): ClassDecorator {
     const result = {
-        target: 'state',
         selector: {}
     };
 
@@ -35,5 +34,5 @@ export function filter(filters) {
         result.selector[key] = (store) => store.state.pipe(pluck(...(filters[key].split('.'))), distinctUntilChanged())
     }
 
-    return result;
+    return connectTo(result);
 }

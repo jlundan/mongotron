@@ -1,26 +1,26 @@
 import {pluck, distinctUntilChanged} from "rxjs/operators"
 import {autoinject} from "aurelia-dependency-injection";
-import {Store} from "aurelia-store";
+import {connectTo, Store} from "aurelia-store";
 import {State} from "../state/state";
 import {Connection} from "../state/connections";
+import produce from "immer"
 
 @autoinject()
 export class ActionStore {
     constructor(private _store: Store<State>) {
-        this.registerAddConnectionAction();
+        this.registerAddConnection();
     }
 
-    public registerAddConnectionAction(){
-        this._store.registerAction('AddConnectionAction', (state: State, payload: any) => {
-            const newConnections = JSON.parse(JSON.stringify(state.viewStates.dbNavigator.connections));
-            newConnections.push(payload);
-            state.viewStates.dbNavigator.connections = newConnections;
-            return state;
-        })
+    public registerAddConnection(){
+        this._store.registerAction('AddConnection', (state: State, connection: Connection) => {
+            return produce(state, (draftState) => {
+                draftState.viewStates.dbNavigator.connections.push(connection);
+            })
+        });
     }
 
-    public fireAddConnectionAction(connection: Connection){
-        return this._store.dispatch('AddConnectionAction', connection);
+    public fireAddConnection(connection: Connection){
+        return this._store.dispatch('AddConnection', connection);
     }
 
 }

@@ -53,6 +53,8 @@ const commonConfig: ({ production }) => webpack.Configuration = (
   module: {
     rules: [
       {
+        //https://github.com/Automattic/mongoose/issues/7476
+        //https://github.com/christkv/require_optional/issues/2
         test: /require_optional/,
         use: 'null-loader'
       },

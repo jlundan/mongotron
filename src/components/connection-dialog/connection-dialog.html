@@ -10,17 +10,27 @@
                         <h3 class="pull-left">
                             <i class="fa fa-server"></i> Manage your connections...
                         </h3>
-                        <i class="close fa fa-times-circle" ng-click="close()"></i>
+                        <i class="close fa fa-times-circle" style="cursor: pointer" data-dismiss="modal"></i>
                     </div>
                     <div class="modal-body">
                         <list-connections></list-connections>
                         <!--<div class="connect-panel" ng-if="currentPage === 'add'" ng-include="addConnectionSrc"></div>-->
                         <!--<div class="connect-panel" ng-if="currentPage === 'edit'" ng-include="editConnectionSrc"></div>-->
                         <!--<div class="connect-panel" ng-if="currentPage === 'remove'" ng-include="removeConnectionSrc"></div>-->
+                        <div class="clearfix">
+                            <div class="list-buttons pull-right">
+                                <button class="btn btn-default" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button class="btn btn-primary" click.trigger="connect()" if.bind="connection !== null" style="width: 150px;">
+                                    Connect${isConnecting ? 'ing...' : ''}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
-

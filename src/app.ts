@@ -1,10 +1,10 @@
-import {Aurelia} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
 import {PLATFORM} from 'aurelia-pal';
 
 export class App {
     router: Router;
 
+    // noinspection JSUnusedGlobalSymbols
     configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'Mongotron';
         config.map([
